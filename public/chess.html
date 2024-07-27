@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Full Page</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #image-container {
+      position: relative;
+    }
+    .a {
+      position: absolute;
+      /* Initial styles for positioning will be set by JavaScript */
+    }
+    .b {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      z-index: 1;
+    }
+    .a img {
+      width: 85%;
+      height: 85%;
+    }
+  </style>
+</head>
+<body>
+  <div id="image-container">
+    <img id="image" src="images/board.png" alt="Image">
+  </div>
+  <script src="chess/pieces/abstract_piece.js"></script>
+  <script src="chess/pieces/bishop.js"></script>
+  <script src="chess/pieces/king.js"></script>
+  <script src="chess/pieces/knight.js"></script>
+  <script src="chess/pieces/pawn.js"></script>
+  <script src="chess/pieces/queen.js"></script>
+  <script src="chess/pieces/rook.js"></script>
+  <script src="chess/board/board.js"></script>
+  <script src="chess/board/piecegetter.js"></script>
+  <script>
+    const img = document.getElementById('image');
+    const img_dir = document.getElementById('image-container');
+
+    img.onload = function() {
+      // Get the image dimensions
+      const width = img.width;
+      const height = img.height;
+      // Set the page size to the image size
+      document.documentElement.style.width = width + 'px';
+      document.documentElement.style.height = height + 'px';
+      document.body.style.width = width + 'px';
+      document.body.style.height = height + 'px';
+    };
+
+    const Board = new board();
+    const piecelist = Board.getBoard();
+    
+    for (let i = 0; i <= 7; i++) {
+      for (let j = 7; j >= 0; j--) {
+        if (piecelist[i][j].getPiece() != null) {
+          const is_white = piecelist[i][j].getPiece().IsWhite() ? "white" : "black";
+          const pieceName = piecelist[i][j].getPiece().GetName();
+          const leftPosition = 25 + 96 * i;
+          const topPosition = 675 - 96 * (7 - j);
+
+          const div = document.createElement('div');
+          div.classList.add('a');
+          div.style.left = `${leftPosition}px`;
+          div.style.top = `${topPosition}px`;
+
+          const img = document.createElement('img');
+          img.src = `images/${is_white}-${pieceName}.png`;
+          img.setAttribute('piece', `${is_white}_${pieceName}`);
+          
+          div.appendChild(img);
+          img_dir.appendChild(div);
+        }
+      }
+    }
+    img_dir.addEventListener('click', function() {
+      if (event.target.getAttribute("piece") != null && event.target.getAttribute("piece") != "move") {
+        if(window.selected_piece != null) {
+          const elements = document.querySelectorAll('[piece]');
+          window.selected_piece = null;
+          elements.forEach(function(element) {
+          if (element.getAttribute('piece') == 'move') {
+            element.remove();
+          }
+        });
+        }
+        const target = event.target.parentElement;
+        const x = (parseInt(target.style.left) -25)/96;
+        const y = (parseInt(target.style.top)-675)/96 +7;
+        const move_list = piecelist[x][y].getPiece().getMoveCount(piecelist,x,y);
+        for(var i = 0; i < move_list.length; i++)
+      {
+          const leftPosition = 25 + 96 * move_list[i][0];
+          const topPosition = 675 - 96 * (7 - move_list[i][1]);
+
+          const div = document.createElement('div');
+          div.classList.add('a');
+          div.style.left = `${leftPosition}px`;
+          div.style.top = `${topPosition}px`;
+
+          const img = document.createElement('img');
+          img.src = `images/available_move.png`;
+          img.setAttribute('piece', `move`);
+          window.selected_piece= event.target;
+          div.appendChild(img);
+          img_dir.appendChild(div);
+      }
+      }else if(event.target.getAttribute("piece") == "move")
+      {
+        const x1 = (parseInt(window.selected_piece.parentElement.style.left)-25)/96;
+        const y1 = (parseInt(window.selected_piece.parentElement.style.top)-675)/96+7;
+        const x2 = (parseInt(event.target.parentElement.style.left)-25)/96;
+        const y2 = (parseInt(event.target.parentElement.style.top)-675)/96+7;
+        const elements = document.querySelectorAll('[piece]');
+        const elementss = document.querySelectorAll('.a');
+        setTimeout(function() {
+        window.selected_piece.parentElement.style.left = `${25+96*x2}px`;
+        window.selected_piece.parentElement.style.top = `${675-96*(7-y2)}px`;
+        window.selected_piece= null;
+      },200)
+        if (piecelist[x2][y2].getPiece() != null) {
+
+  elementss.forEach(e => {
+    // Convert style values to integers after removing 'px'
+    const leftPos = 25+96*x2 || 0;
+    const topPos = 675 - 96*(7-y2) || 0;
+
+    if (Math.abs(parseInt(e.style.left) - leftPos) < 10 && Math.abs(parseInt(e.style.top) - topPos) < 10) {
+      e.innerHTML = '';
+      e.remove();
+    }
+  });
+
+}
+elements.forEach(function(element) {
+          if (element.getAttribute('piece') == 'move') {
+            element.remove();
+          }
+        });
+        piecelist[x1][y1].getPiece().move();
+        piecelist[x2][y2].setPiece(piecelist[x1][y1].getPiece());
+        piecelist[x1][y1].setPiece(null);
+        // Loop through the NodeList and remove elements with a specific value
+      }
+
+    });
+    function addTiles(x,y)
+    {
+
+    }
+  </script>
+</body>
+</html>
