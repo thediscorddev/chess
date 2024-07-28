@@ -1,10 +1,14 @@
 /*Importing the required package*/
-const db = new require('quick.db').QuickDB();
-const server = require('express').express();
+const {QuickDB} = require('quick.db');
+const db = new QuickDB();
+const express = require('express');
+const server = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const http = require('http');
+const path = require('path');
 const WebSocket = require('ws');
+const rateLimit = require('express-rate-limit');
 const port = 3000; // you may change it later
 /*Setting up*/
 server.use(express.static(path.join(__dirname, 'public')));
