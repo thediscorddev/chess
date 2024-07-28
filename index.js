@@ -26,6 +26,9 @@ const limiter = rateLimit({
 server.use(limiter);
 const http_server = http.createServer(server);
 const wss = new WebSocket.Server({ server:http_server });
+server.get("/gettoken", (req,res) => {
+  if(!req.session.token) return;
+})
 /*Listening to websocket (Required for pushing pieces in real time)*/
 /*Listening to express*/
 /*Listen to port*/
