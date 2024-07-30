@@ -16,6 +16,13 @@ class king extends abstract_piece
                 else if(board[x+dx][y+dy].getPiece().IsWhite() != this.IsWhite()) temp.push([x+dx,y+dy]);
             }
         }
+        if(this.MoveCount() == 0)
+        {
+            if(board[0][7].getPiece().MoveCount() == 0 && board[0][7].getPiece().IsWhite() == this.IsWhite() && board[0][7].getPiece() instanceof rook)temp.push([2,7,0,7]);
+            if(board[7][7].getPiece().MoveCount() == 0 && board[7][7].getPiece().IsWhite() == this.IsWhite() && board[7][7].getPiece() instanceof rook)temp.push([6,7,7,7]);
+            if(board[7][0].getPiece().MoveCount() == 0 && board[7][0].getPiece().IsWhite() == this.IsWhite() && board[7][0].getPiece() instanceof rook)temp.push([6,0,7,0]);
+            if(board[0][0].getPiece().MoveCount() == 0 && board[0][0].getPiece().IsWhite() == this.IsWhite() && board[0][0].getPiece() instanceof rook)temp.push([2,0,0,0]);
+        }
         return temp;
     }
     GetDisplayName()

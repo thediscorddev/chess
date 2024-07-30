@@ -181,6 +181,14 @@ elements.forEach(function(element) {
         console.log(piecelist[x2][y2]);
         console.log(x2 + " " + y2 +"i");
         piecelist[x1][y1].setPiece(null);
+        if(piecelist[x2][y2].getPiece() instanceof king)
+        {
+          if(x2 == 2 && y2 == 7 && piecelist[x2][y2].getPiece().MoveCount()-1 <= 0) {
+            elements.forEach(e => {
+              if(e.getAttribute("piece") == rook);
+            })
+          }
+        }
         console.log(Board.displayBoard())
         // Loop through the NodeList and remove elements with a specific value
       }
