@@ -18,10 +18,46 @@ class king extends abstract_piece
         }
         if(this.MoveCount() == 0)
         {
-            if(board[0][7].getPiece().MoveCount() == 0 && board[0][7].getPiece().IsWhite() == this.IsWhite() && board[0][7].getPiece() instanceof rook)temp.push([2,7,0,7]);
-            if(board[7][7].getPiece().MoveCount() == 0 && board[7][7].getPiece().IsWhite() == this.IsWhite() && board[7][7].getPiece() instanceof rook)temp.push([6,7,7,7]);
-            if(board[7][0].getPiece().MoveCount() == 0 && board[7][0].getPiece().IsWhite() == this.IsWhite() && board[7][0].getPiece() instanceof rook)temp.push([6,0,7,0]);
-            if(board[0][0].getPiece().MoveCount() == 0 && board[0][0].getPiece().IsWhite() == this.IsWhite() && board[0][0].getPiece() instanceof rook)temp.push([2,0,0,0]);
+            if(board[0][7].getPiece().MoveCount() == 0 && board[0][7].getPiece().IsWhite() == this.IsWhite() && board[0][7].getPiece() instanceof rook)
+                {
+                  var dt = x-1;
+                  while(dt >0)
+                    {
+                        if(board[dt][7].getPiece() != null) break;
+                        dt--;
+                    }
+                    if(dt == 0) temp.push([2,7,0,7]);
+                }
+            if(board[7][7].getPiece().MoveCount() == 0 && board[7][7].getPiece().IsWhite() == this.IsWhite() && board[7][7].getPiece() instanceof rook)
+                {
+                    var dt = x+1;
+                    while(dt <7)
+                      {
+                          if(board[dt][7].getPiece() != null) break;
+                          dt++;
+                      }
+                      if(dt == 7) temp.push([6,7,7,7]);
+                }
+            if(board[7][0].getPiece().MoveCount() == 0 && board[7][0].getPiece().IsWhite() == this.IsWhite() && board[7][0].getPiece() instanceof rook)
+                {
+                    var dt = x+1;
+                    while(dt < 7)
+                      {
+                          if(board[dt][0].getPiece() != null) break;
+                          dt++;
+                      }
+                      if(dt == 0) temp.push([6,0,7,0]);
+                  }
+            if(board[0][0].getPiece().MoveCount() == 0 && board[0][0].getPiece().IsWhite() == this.IsWhite() && board[0][0].getPiece() instanceof rook)
+                {
+                    var dt = x-1;
+                    while(dt >0)
+                      {
+                          if(board[dt][0].getPiece() != null) break;
+                          dt--;
+                      }
+                      if(dt == 0) temp.push([2,0,0,0]);
+                  };
         }
         return temp;
     }
