@@ -1,0 +1,27 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevent scrollbars inside the iframe content */
+  }
+  #image-container {
+    position: relative;
+  }
+  .a {
+    position: absolute;
+    /* Initial styles for positioning will be set by JavaScript */
+  }
+  .b {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    z-index: 1;
+  }
+  .a img {
+    width: 85%;
+    height: 85%;
+  }

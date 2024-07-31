@@ -18,6 +18,7 @@ class king extends abstract_piece
         }
         if(this.MoveCount() == 0)
         {
+            if(this.IsWhite() == true) {
             if(board[0][7].getPiece().MoveCount() == 0 && board[0][7].getPiece().IsWhite() == this.IsWhite() && board[0][7].getPiece() instanceof rook)
                 {
                   var dt = x-1;
@@ -38,6 +39,7 @@ class king extends abstract_piece
                       }
                       if(dt == 7) temp.push([6,7,7,7]);
                 }
+            }else {
             if(board[7][0].getPiece().MoveCount() == 0 && board[7][0].getPiece().IsWhite() == this.IsWhite() && board[7][0].getPiece() instanceof rook)
                 {
                     var dt = x+1;
@@ -46,7 +48,7 @@ class king extends abstract_piece
                           if(board[dt][0].getPiece() != null) break;
                           dt++;
                       }
-                      if(dt == 0) temp.push([6,0,7,0]);
+                      if(dt == 7) temp.push([6,0,7,0]);
                   }
             if(board[0][0].getPiece().MoveCount() == 0 && board[0][0].getPiece().IsWhite() == this.IsWhite() && board[0][0].getPiece() instanceof rook)
                 {
@@ -59,6 +61,7 @@ class king extends abstract_piece
                       if(dt == 0) temp.push([2,0,0,0]);
                   };
         }
+    }
         return temp;
     }
     GetDisplayName()

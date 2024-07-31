@@ -4,35 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Image Full Page</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      position: relative;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden; /* Prevent scrollbars inside the iframe content */
-    }
-    #image-container {
-      position: relative;
-    }
-    .a {
-      position: absolute;
-      /* Initial styles for positioning will be set by JavaScript */
-    }
-    .b {
-      position: absolute;
-      top: 50px;
-      left: 50px;
-      z-index: 1;
-    }
-    .a img {
-      width: 85%;
-      height: 85%;
-    }
-  </style>
+  <link rel = "stylesheet" href="styles/chessdothtml.css">
 </head>
 <body>
   <div id="image-container">
@@ -47,153 +19,11 @@
   <script src="chess/pieces/rook.js"></script>
   <script src="chess/board/board.js"></script>
   <script src="chess/board/piecegetter.js"></script>
-  <script>
-    const img = document.getElementById('image');
-    const img_dir = document.getElementById('image-container');
-
-    img.onload = function() {
-      // Get the image dimensions
-      const width = img.width;
-      const height = img.height;
-      // Set the page size to the image size
-      document.documentElement.style.width = width + 'px';
-      document.documentElement.style.height = height + 'px';
-      document.body.style.width = width + 'px';
-      document.body.style.height = height + 'px';
-    };
-
-    const Board = new board();
-    const piecelist = Board.getBoard();
-    
-    for (let i = 0; i <= 7; i++) {
-      for (let j = 7; j >= 0; j--) {
-        if (piecelist[i][j].getPiece() != null) {
-          const is_white = piecelist[i][j].getPiece().IsWhite() ? "white" : "black";
-          const pieceName = piecelist[i][j].getPiece().GetName();
-          const leftPosition = 25 + 96 * i;
-          const topPosition = 675 - 96 * (7 - j);
-
-          const div = document.createElement('div');
-          div.classList.add('a');
-          div.style.left = `${leftPosition}px`;
-          div.style.top = `${topPosition}px`;
-
-          const img = document.createElement('img');
-          img.src = `images/${is_white}-${pieceName}.png`;
-          img.setAttribute('piece', `${is_white}_${pieceName}`);
-          
-          div.appendChild(img);
-          img_dir.appendChild(div);
-        }
-      }
-    }
-    img_dir.addEventListener('click', function() {
-      if (event.target.getAttribute("piece") != null && event.target.getAttribute("piece") != "move") {
-        if(window.selected_piece != null) {
-          const elements = document.querySelectorAll('[piece]');
-          window.selected_piece = null;
-          elements.forEach(function(element) {
-          if (element.getAttribute('piece') == 'move') {
-            element.remove();
-          }
-        });
-        }
-        const target = event.target.parentElement;
-        const x = Math.ceil((parseInt(target.style.left) -25)/96);
-        const y = Math.ceil((parseInt(target.style.top)-675)/96 +7);
-        console.log(x + " " + y +"i");
-        console.log(piecelist[x][y]);
-        console.log(piecelist[x][y].getPiece());
-        const move_list = piecelist[x][y].getPiece().getMoveCount(piecelist,x,y);
-        for(var i = 0; i < move_list.length; i++)
-      {
-          const leftPosition = 25 + 96 * move_list[i][0];
-          const topPosition = 675 - 96 * (7 - move_list[i][1]);
-
-          const div = document.createElement('div');
-          div.classList.add('a');
-          div.style.left = `${leftPosition}px`;
-          div.style.top = `${topPosition}px`;
-   
-          const img = document.createElement('img');
-          img.src = `images/available_move.png`;
-          img.setAttribute('piece', `move`);
-          window.selected_piece= event.target;
-          div.appendChild(img);
-          img_dir.appendChild(div);
-      }
-      }else if(event.target.getAttribute("piece") == "move")
-      {
-        const a1 = parseInt(window.selected_piece.parentElement.style.left);
-        const b1 = parseInt(window.selected_piece.parentElement.style.top);
-        const a2 = parseInt(event.target.parentElement.style.left);
-        const b2 = parseInt(event.target.parentElement.style.top);
-        const x1 = Math.ceil((a1-25)/96);
-        const y1 = Math.ceil((b1-675)/96+7);
-        const x2 = Math.ceil((a2-25)/96);
-        const y2 = Math.ceil((b2-675)/96+7);
-        const elements = document.querySelectorAll('[piece]');
-        const elementss = document.querySelectorAll('.a');
-        setTimeout(function() {
-          const step = 4*(x2-x1);
-          var start_point = 1;
-          var endpoint = step;
-          var y_step,x_step = 0;
-          if(step < 0)endpoint = -1*step;
-          if(step == 0) endpoint=5;
-          x_step= (a2-a1)/endpoint;
-          y_step = (b2-b1)/endpoint;
-          
-          for (let i = start_point; i <= endpoint; i++) {
-            setTimeout(() => {
-              window.selected_piece.parentElement.style.left = `${parseInt(window.selected_piece.parentElement.style.left) + x_step}px`;
-              window.selected_piece.parentElement.style.top = `${parseInt(window.selected_piece.parentElement.style.top) + y_step}px`;
-              if (i === endpoint) {
-                window.selected_piece = null;
-              }
-            }, 35 * (Math.abs(i)+1)); // Increase the delay for each iteration
-          }
-
-        
-      },200)
-        if (piecelist[x2][y2].getPiece() != null) {
-
-  elementss.forEach(e => {
-    // Convert style values to integers after removing 'px'
-    const leftPos = 25+96*x2 || 0;
-    const topPos = 675 - 96*(7-y2) || 0;
-
-    if (Math.abs(parseInt(e.style.left) - leftPos) < 10 && Math.abs(parseInt(e.style.top) - topPos) < 10) {
-      e.innerHTML = '';
-      e.remove();
-    }
-  });
-
-}
-elements.forEach(function(element) {
-          if (element.getAttribute('piece') == 'move') {
-            element.remove();
-          }
-        });
-        piecelist[x1][y1].getPiece().move();
-        console.log(piecelist[x2][y2]);
-        piecelist[x2][y2].setPiece(piecelist[x1][y1].getPiece());
-        console.log(piecelist[x2][y2]);
-        console.log(x2 + " " + y2 +"i");
-        piecelist[x1][y1].setPiece(null);
-        if(piecelist[x2][y2].getPiece() instanceof king)
-        {
-          if(x2 == 2 && y2 == 7 && piecelist[x2][y2].getPiece().MoveCount()-1 <= 0) {
-            elements.forEach(e => {
-              if(e.getAttribute("piece") == rook);
-            })
-          }
-        }
-        console.log(Board.displayBoard())
-        // Loop through the NodeList and remove elements with a specific value
-      }
-
-    });
-  </script>
+  <script src="chess/functions/onLoad.js"></script>
+  <script src="chess/functions/intalize.js"></script>
+  <script src="chess/functions/placeMoveTile.js"></script>
+  <script src="chess/functions/castling.js"></script>
+  <script src="chess/functions/handlingPieceMovement.js"></script>
+  <script src="chess/functions/listenToClick.js"></script>
 </body>
 </html>
