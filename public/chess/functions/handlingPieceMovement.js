@@ -48,6 +48,27 @@ elements.forEach(function(element) {
           element.remove();
         }
       });
+      if(piecelist[x1][y1].getPiece() instanceof pawn)
+      {
+       
+        for(const a of piecelist[x1][y1].getPiece().getMoveCount(piecelist,x1,y1)) {
+          if(a[0] == x2 && a[1] == y2 && a[2] != null && a[3] != null)
+          {
+            const xp = 25 + 96 * a[2];
+            const yp = 675 - 96 * (7 - a[3]);
+            piecelist[a[2]][a[3]].setPiece(null);
+            const name = (piecelist[x1][y1].getPiece().IsWhite())?"black_pawn":"white_pawn";
+            elements.forEach(function(e) {
+              if (e.getAttribute('piece') == name) {
+                if (Math.abs(parseInt(e.parentElement.style.left) - xp) < 10 && Math.abs(parseInt(e.parentElement.style.top) - yp) < 10) {
+                  e.parentElement.remove();
+                }
+              }
+            });
+            break;
+          }
+        }
+      }
       piecelist[x1][y1].getPiece().move();
       piecelist[x2][y2].setPiece(piecelist[x1][y1].getPiece());
       piecelist[x1][y1].setPiece(null);

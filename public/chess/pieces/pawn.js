@@ -9,16 +9,17 @@ class pawn extends abstract_piece
         var temp=[];
         var max_limit = (this.IsWhite() == true)?0:7;
         var direction=(this.IsWhite() == true)?-1:1;
+        const EnPassantRank = (this.IsWhite())?3:4;
         if(y!=max_limit) {
         if(board[x][y+direction].getPiece() == null)temp.push([x,y+direction,null,null]);
         if(this.MoveCount() == 0 && board[x][y+2*direction].getPiece() == null && board[x][y+direction].getPiece() == null) temp.push([x,y+2*direction,null,null]);
         if(x != 0) {
             if(board[x-1][y+direction].getPiece() != null) {
-                if(this.IsWhite() != board[x-1][y+direction].getPiece().IsWhite()) temp.push([x-1,y+direction,x-1,y+direction]);
+                if(this.IsWhite() != board[x-1][y+direction].getPiece().IsWhite()) temp.push([x-1,y+direction,null,null]);
             }
             if (board[x-1][y].getPiece() != null) {
                 if (this.IsWhite() != board[x-1][y].getPiece().IsWhite() && board[x-1][y].getPiece() instanceof pawn) {
-                  if (board[x-1][y].getPiece().MoveCount() == 1) {
+                  if (board[x-1][y].getPiece().MoveCount() == 1 && y == EnPassantRank) {
                     temp.push([x-1, y+direction,x-1,y]);
                   }
                 }
@@ -26,11 +27,11 @@ class pawn extends abstract_piece
         }
         if(x != 7) {
             if(board[x+1][y+direction].getPiece() != null) {
-                if(this.IsWhite() != board[x+1][y+direction].getPiece().IsWhite()) temp.push([x+1,y+direction,x+1,y+direction]);
+                if(this.IsWhite() != board[x+1][y+direction].getPiece().IsWhite()) temp.push([x+1,y+direction,null,null]);
             }
             if (board[x+1][y].getPiece() != null) {
                 if (this.IsWhite() != board[x+1][y].getPiece().IsWhite() && board[x+1][y].getPiece() instanceof pawn) {
-                  if (board[x+1][y].getPiece().MoveCount() == 1) {
+                  if (board[x+1][y].getPiece().MoveCount() == 1 && y == EnPassantRank) {
                     temp.push([x+1, y+direction,x+1,y]);
                   }
                 }
