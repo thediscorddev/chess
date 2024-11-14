@@ -1,0 +1,24 @@
+.menu
+{
+    height:100%;
+    width:250px;
+    position:fixed;
+    top:0;
+    left:0;
+    background-color: #121212;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+.menu a {
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+.menu a:hover {
+    background-color: #868686;
+}

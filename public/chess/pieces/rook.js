@@ -16,7 +16,8 @@ class rook extends abstract_piece
                 if(board[i][y].getPiece() == this) continue;
                 if(board[i][y].getPiece().IsWhite() == this.IsWhite()) break;
                 else {
-                    temp.push([i,y]);
+                    if(board[x][i].getPiece() instanceof king) temp.push([x,i,true]);
+                    else temp.push([x,i]);
                     break;
                 }
             }
@@ -30,7 +31,8 @@ class rook extends abstract_piece
                     if(board[i][y].getPiece() == this) continue;
                     if(board[i][y].getPiece().IsWhite() == this.IsWhite()) break;
                     else {
-                        temp.push([i,y]);
+                        if(board[x][i].getPiece() instanceof king) temp.push([x,i,true]);
+                        else temp.push([x,i]);
                         break;
                     }
                 }
@@ -44,7 +46,8 @@ class rook extends abstract_piece
                     if(board[x][i].getPiece() == this) continue;
                     if(board[x][i].getPiece().IsWhite() == this.IsWhite()) break;
                     else {
-                        temp.push([x,i]);
+                        if(board[x][i].getPiece() instanceof king) temp.push([x,i,true]);
+                        else temp.push([x,i]);
                         break;
                     }
                 }
@@ -58,7 +61,8 @@ class rook extends abstract_piece
                     if(board[x][i].getPiece() == this) continue;
                     if(board[x][i].getPiece().IsWhite() == this.IsWhite()) break;
                     else {
-                        temp.push([x,i]);
+                        if(board[x][i].getPiece() instanceof king) temp.push([x,i,true]);
+                        else temp.push([x,i]);
                         break;
                     }
                 }
