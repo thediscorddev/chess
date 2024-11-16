@@ -4,10 +4,27 @@
         <link rel="stylesheet" href="styles/mainstyle.css">
     </head>
     <body>
-        <div class = "menu">
-            <a href = "account.html" target="_parent">Account</a>  
-            <br><br>
-            <a href = "games.html" target="_parent">Current Games</a>  
+        <div class = "menu" id = "menu_">
+            <a href = "account.html" target="_parent"><img src="images/white-king.png">Account information</a>  
+            <br>
+            <a href = "games.html" target="_parent"><img src="images/white-knight.png">Current games</a> 
+            <br> 
+            <a href = "new.html" target="_parent"><img src="images/white-pawn.png">New games</a> 
+            <br>
+            <a href = "friends.html" target="_parent"><img src="images/white-bishop.png">Friends list</a> 
+            <br>
+            <a href = "statistics.html" target="_parent"><img src="images/white-rook.png">Game statistics</a> 
+            <br> 
         </div>
+        <script src="accountchecker.js"></script>
+        <script>
+            checklogin().then(status => {
+                if(status) document.getElementById("menu_").innerHTML += '<a href = "logout.html" target="_parent"><img src="images/white-queen.png">Logout</a>';
+                else {
+                    document.getElementById("menu_").innerHTML+='<a href = "login.html" target="_parent"><img src="images/white-queen.png">Sign in</a><br>';
+                    document.getElementById("menu_").innerHTML+='<a href = "signup.html" target="_parent"><img src="images/white-pawn.png"><img src="images/black-pawn.png">Sign up</a>';
+                }
+            })
+        </script>
     </body>
 </html>

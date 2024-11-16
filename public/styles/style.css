@@ -26,27 +26,144 @@ body {
     transform-origin: 0 0;
   }
   .frame {
-    position: absolute;
-    top: auto;
-    left: auto;
-    width: 80%;
-    height: 80%;
+    position: fixed;
+    top: 40px;
+    left: 25px;
+    width: calc(80% + 20px); /* Keep proportional width relative to the screen */
+    height: calc(80% - 10px); /* Keep proportional height relative to the screen */
     overflow: hidden;
   }
+  
   .frame iframe {
     border: none;
-    width: 200%;
-    height: 200%;
-    transform: scale(0.55);
-    transform-origin: 0 0;
+    width: 200%; /* Maintain 200% width to display the full content */
+    height: 200%; /* Maintain 200% height to display the full content */
+    transform: scale(0.55); /* Desired scaling */
+    transform-origin: 0 0; /* Keep the scaling origin at the top-left corner */
   }
+  
+  
   .content
 {
   position: absolute;
-    left:251px;
-    top:0px;
+  left:381px;
+  top:0px;
 }
 .content p,h1
 {
     color: white;
+    font-family: Arial;
+    font-size: 40px;
+    vertical-align: middle;
+}
+.content .opponent
+{
+  display: block;
+  position:fixed;
+  height:80px;
+  left:209px;
+  width: calc(80% - 209px);
+  top:0px;
+  background-color: #121212;
+}
+.content .you img
+{
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  border: 6px transparent;
+  vertical-align: middle;
+}
+.content .opponent img
+{
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.content .you p, h1, span
+{
+  color: white;
+  font-family: Arial;
+  font-size: 30px;
+  vertical-align: middle;
+}
+.content .opponent p, h1, span
+{
+  color: white;
+  font-family: Arial;
+  font-size: 30px;
+  vertical-align: middle;
+}
+.content .you
+{
+  display: block;
+  position: fixed;
+  bottom:0px;
+  height:80px;
+  left:209px;
+  width: calc(80% - 209px);
+  background-color: #121212;
+}
+.scale-container {
+  transform-origin: 0 0;
+  width: 1366px;
+  height: 641px;
+}
+
+.newgamemenu
+{
+  display: block;
+  position:fixed;
+  height:94%;
+  right:calc((1%));
+  width: calc((18%));
+  top:calc((3%));
+  background-color: #252525;
+  border-radius: 2px;
+  text-align: center;
+}
+.newgamemenu a
+{
+  display: inline-block;
+  background-color: rgb(160, 173, 190);
+  text-decoration: none;
+  border: 6px solid rgb(160, 173, 190);
+}
+.newgamemenu a:hover
+{
+  display: inline-block;
+  background-color: rgb(121, 131, 145);
+  text-decoration: none;
+  border: 6px solid rgb(121, 131, 145);
+  color:white;
+}
+.newgamemenu p
+{
+  font-size: 16px;
+}
+.icon
+{
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  vertical-align: middle;
+}
+span {
+  font-size: 30px;
+  font-family: Arial;
+  vertical-align: middle;
+}
+.smallspan
+{
+  font-size: 15px;
+  font-family: Arial;
+  vertical-align: middle;
+}
+.smallicon
+{
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
 }

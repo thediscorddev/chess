@@ -36,9 +36,6 @@ server.use(limiter);
 server.use(express.json());
 const http_server = http.createServer(server);
 const wss = new WebSocket.Server({ server:http_server });
-server.get("/gettoken", (req,res) => {
-  if(!req.session.token) return;
-})
 server.post("/login",async (req,res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -95,7 +92,8 @@ server.post("/createaccount", async (req,res) => {
       "id":id,
       "token":token,
       "username":username,
-      "password":passwords
+      "password":passwords,
+      "friendslist":[]
     }
     req.session.token = token;
     req.session.username = username;
@@ -107,6 +105,12 @@ server.post("/createaccount", async (req,res) => {
     res.send(`{"status":401,"message":"exist"}`);
   }
 });
+server.get("/logout",(req,res) => {
+  req.session.aid = null;
+  req.session.token = null;
+  req.session.username = null;
+  res.send( '{"status":200,"message":"logged out"}');
+})
 server.get("/getaccountinfo",(req,res) => {
   /*{"id":string,
   "token":string,
