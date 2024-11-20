@@ -65,6 +65,18 @@ server.post("/login",async (req,res) => {
   }
   if(!hasAnswered) res.send(`{"status":401,"message":"Not logged in"}`);
 })
+server.get("/swap_language",async(req,res) => {
+  if(!req.session.lang) req.session.lang = "zh_tw";
+  else req.session.lang = (req.session.lang == "en_us")?'zh_tw':'en_us';
+  res.redirect("/");
+})
+server.get("/language", async (req,res) => {
+  const lang = {
+    "status":200,
+    "message":(req.session.lang)?req.session.lang:"en_us"
+  }
+  res.send(JSON.stringify(lang));
+})
 server.post("/createaccount", async (req,res) => {
   const username = req.body.username;
   const password = req.body.password;

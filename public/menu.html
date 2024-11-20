@@ -5,26 +5,29 @@
     </head>
     <body>
         <div class = "menu" id = "menu_">
-            <a href = "account.html" target="_parent"><img src="images/white-king.png">Account information</a>  
+            <a href = "account.html" target="_parent"><img src="images/white-king.png"><clanguage id = "menu_account"></clanguage></a>  
             <br>
-            <a href = "games.html" target="_parent"><img src="images/white-knight.png">Current games</a> 
+            <a href = "games.html" target="_parent"><img src="images/white-knight.png"><clanguage id = "menu_games"></clanguage></a> 
             <br> 
-            <a href = "new.html" target="_parent"><img src="images/white-pawn.png">New games</a> 
+            <a href = "new.html" target="_parent"><img src="images/white-pawn.png"><clanguage id = "menu_new"></clanguage></a> 
             <br>
-            <a href = "friends.html" target="_parent"><img src="images/white-bishop.png">Friends list</a> 
+            <a href = "friends.html" target="_parent"><img src="images/white-bishop.png"><clanguage id = "menu_friends"></clanguage></a> 
             <br>
-            <a href = "statistics.html" target="_parent"><img src="images/white-rook.png">Game statistics</a> 
+            <a href = "statistics.html" target="_parent"><img src="images/white-rook.png"><clanguage id = "menu_stats"></clanguage></a> 
             <br> 
+            <a href = "swap_language" target="_parent"><img src="images/black-rook.png"><clanguage id = "menu_langswap"></clanguage></a> 
+            <br>
         </div>
         <script src="accountchecker.js"></script>
         <script>
             checklogin().then(status => {
                 if(status) document.getElementById("menu_").innerHTML += '<a href = "logout.html" target="_parent"><img src="images/white-queen.png">Logout</a>';
                 else {
-                    document.getElementById("menu_").innerHTML+='<a href = "login.html" target="_parent"><img src="images/white-queen.png">Sign in</a><br>';
-                    document.getElementById("menu_").innerHTML+='<a href = "signup.html" target="_parent"><img src="images/white-pawn.png"><img src="images/black-pawn.png">Sign up</a>';
+                    document.getElementById("menu_").innerHTML+='<a href = "login.html" target="_parent"><img src="images/white-queen.png"><clanguage id = "menu_login"></clanguage></a><br>';
+                    document.getElementById("menu_").innerHTML+='<a href = "signup.html" target="_parent"><img src="images/white-pawn.png"><img src="images/black-pawn.png"><clanguage id = "menu_signup"></clanguage></a>';
                 }
             })
         </script>
+            <script src = "languageHandler.js"></script>
     </body>
 </html>

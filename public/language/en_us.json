@@ -1,0 +1,10 @@
+{
+    "menu_account":"Account information",
+    "menu_games":"Current games",
+    "menu_new":"New games",
+    "menu_friends":"Friends list",
+    "menu_stats":"Game statistics",
+    "menu_login":"Sign in",
+    "menu_signup":"Sign up",
+    "menu_langswap":"Switch language to chinese"
+}
